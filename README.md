@@ -153,6 +153,11 @@ pnpm clean                   # Remove builds e cache
 
 ## 🎯 Roadmap
 
+### ✅ CI/CD Pipeline
+- ✅ GitHub Actions configurado
+- ✅ Deploy automático para Vercel
+- ✅ Testes automatizados
+
 ### Sprint 1 - Funcionalidades Core
 - [ ] Página de listagem de solicitações
 - [ ] Formulário de criação de solicitações
