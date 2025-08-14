@@ -121,8 +121,8 @@ NEXTAUTH_SECRET=<nextauth-secret>
 
 ## 🎯 Funcionalidades Implementadas
 
-### ✅ Core Features
-- [x] **Autenticação**: Google OAuth com NextAuth.js
+### ✅ Core Features - TODAS FUNCIONANDO EM PRODUÇÃO
+- [x] **Autenticação**: Google OAuth com NextAuth.js ✅ **FUNCIONANDO**
 - [x] **Issues Management**: CRUD completo de solicitações
 - [x] **Sistema de Votação**: Apoiar/não apoiar solicitações
 - [x] **Comentários**: Sistema completo de comentários
@@ -130,6 +130,8 @@ NEXTAUTH_SECRET=<nextauth-secret>
 - [x] **Filtros e Busca**: Por categoria, status e texto
 - [x] **Dashboard**: Estatísticas e solicitações do usuário
 - [x] **Navegação Mobile**: Menu hamburger responsivo
+- [x] **Deploy Automatizado**: CI/CD via GitHub Actions ✅ **FUNCIONANDO**
+- [x] **Banco de Dados**: PostgreSQL Neon sincronizado ✅ **FUNCIONANDO**
 
 ### 📱 UI/UX Features
 - [x] **Design Responsivo**: Mobile-first approach
@@ -222,6 +224,23 @@ model Comment {
 2. Confirmar variável no ambiente correto
 3. Executar `prisma generate` após mudanças
 
+#### 5. NextAuth "accounts table does not exist" Error ✅ RESOLVIDO
+**Causa**: Dessincronia entre schema do Prisma e banco real na produção
+**Solução**:
+1. Executar `prisma db pull` para sincronizar com o banco real
+2. Executar `prisma generate` para atualizar o client
+3. Commitar mudanças do schema no Git
+4. Verificar se DATABASE_URL da Vercel aponta para o banco correto
+
+#### 6. Google OAuth "Configuration" Error ✅ RESOLVIDO
+**Causa**: Credenciais OAuth desatualizadas ou redirect URIs incorretos
+**Solução**:
+1. Criar nova credencial OAuth no Google Cloud Console
+2. Configurar redirect URIs para todas as URLs (localhost, staging, production, preview)
+3. Atualizar GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET na Vercel
+4. Atualizar NEXTAUTH_URL para URL atual do deploy
+5. Fazer redeploy na Vercel
+
 ## 📞 Comandos Úteis
 
 ### Development
@@ -273,6 +292,22 @@ vercel logs [deployment-url]
 
 ## 📝 Notas Importantes
 
+⚠️ **IMPORTANTE**: A aplicação roda na **Vercel** com CI/CD via **GitHub Actions**. NUNCA rodar localmente para testar problemas de produção. Usar logs da Vercel e debugging via commits.
+
+### Ambientes
+- **Local**: Para desenvolvimento apenas (`localhost:3002`)
+- **Staging**: Deploy automático via CI/CD (`https://staging-koeprefeito.vercel.app`)
+- **Production**: Deploy automático via CI/CD (`https://koeprefeito.vercel.app`)
+
+### Fluxo de Deploy
+1. **Push para branch** → **GitHub Actions CI** → **Deploy Staging** → **Tests** → **Deploy Production**
+2. **Logs de erro**: Vercel Dashboard → Functions → View Function Logs
+
+### Bancos de Dados
+- **Staging**: Neon database `koeprefeito-staging`
+- **Production**: Neon database `koeprefeito-production`
+- Schema sincronizado via `prisma db pull` e commitado no Git
+
 ### Segurança
 - Nunca commitar secrets no Git
 - Usar `env-variables-reference.md` apenas localmente
@@ -295,4 +330,4 @@ vercel logs [deployment-url]
 
 **Última atualização**: 2025-08-14  
 **Versão**: 1.0.0  
-**Status**: ✅ Produção
+**Status**: ✅ Produção - **FUNCIONANDO COM AUTENTICAÇÃO GOOGLE** 🎉
