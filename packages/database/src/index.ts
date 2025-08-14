@@ -16,6 +16,10 @@ export type {
   Vote,
   Attachment,
   Notification,
+} from "@prisma/client";
+
+// Export enums as values (not types) so they can be used with z.nativeEnum()
+export {
   UserRole,
   IssueCategory,
   IssueStatus,
