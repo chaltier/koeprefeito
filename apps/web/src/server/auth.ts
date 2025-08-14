@@ -35,10 +35,14 @@ export const authOptions: NextAuthOptions = {
     }),
   },
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
   ],
   pages: {
     signIn: "/auth/signin",
@@ -47,11 +51,15 @@ export const authOptions: NextAuthOptions = {
   debug: process.env.NODE_ENV === "development",
   events: {
     createUser: async ({ user }) => {
-      // Definir role padrão como CITIZEN para novos usuários
-      await prisma.user.update({
-        where: { id: user.id },
-        data: { role: "CITIZEN" },
-      });
+      try {
+        // Definir role padrão como CITIZEN para novos usuários
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { role: "CITIZEN" },
+        });
+      } catch (error) {
+        console.error("Error setting default role for user:", error);
+      }
     },
   },
 };
