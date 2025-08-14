@@ -8,6 +8,7 @@ import { Badge } from "@koeprefeito/ui";
 import { Input } from "@koeprefeito/ui";
 import { api } from "~/utils/api";
 import { Layout } from "~/components/Layout";
+import { VoteButton } from "~/components/VoteButton";
 import { IssueCategory, IssueStatus } from "@koeprefeito/database";
 
 const categoryLabels: Record<IssueCategory, string> = {
@@ -244,12 +245,6 @@ export default function IssuesPage() {
                               </svg>
                               {issue._count?.comments || 0}
                             </span>
-                            <span className="flex items-center gap-1">
-                              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                              </svg>
-                              {issue._count?.votes || 0}
-                            </span>
                             <time dateTime={issue.createdAt.toISOString()}>
                               {new Intl.DateTimeFormat("pt-BR", {
                                 day: "2-digit",
@@ -258,6 +253,14 @@ export default function IssuesPage() {
                               }).format(new Date(issue.createdAt))}
                             </time>
                           </div>
+                        </div>
+                        
+                        <div className="mt-4 pt-4 border-t border-gray-100">
+                          <VoteButton
+                            issueId={issue.id}
+                            initialVotes={issue._count?.votes || 0}
+                            userVote={null} // We'd need to enhance the getAll query to include user votes
+                          />
                         </div>
                       </CardContent>
                     </Link>

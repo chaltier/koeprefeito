@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -7,6 +8,7 @@ import { Card, CardContent, CardHeader } from "@koeprefeito/ui";
 import { Badge } from "@koeprefeito/ui";
 import { api } from "~/utils/api";
 import { Layout } from "~/components/Layout";
+import { VoteButton } from "~/components/VoteButton";
 import { IssueCategory, IssueStatus, IssuePriority } from "@koeprefeito/database";
 
 const categoryLabels: Record<IssueCategory, string> = {
@@ -51,10 +53,16 @@ export default function IssuePage() {
   const router = useRouter();
   const { data: session } = useSession();
   const { id } = router.query;
+  const [voteCount, setVoteCount] = useState(0);
 
   const { data: issue, isLoading, error } = api.issues.getById.useQuery(
     { id: id as string },
-    { enabled: !!id }
+    { 
+      enabled: !!id,
+      onSuccess: (data) => {
+        setVoteCount(data.votes?.length || 0);
+      }
+    }
   );
 
   if (isLoading) {
@@ -285,7 +293,7 @@ export default function IssuePage() {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Votos</span>
-                    <span className="font-medium">{issue.votes?.length || 0}</span>
+                    <span className="font-medium">{voteCount}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Comentários</span>
@@ -315,13 +323,16 @@ export default function IssuePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <Button className="w-full" variant="outline">
-                      👍 Apoiar (0)
-                    </Button>
+                    <VoteButton
+                      issueId={issue.id}
+                      initialVotes={voteCount}
+                      userVote={issue.userVote as "UP" | "DOWN" | null}
+                      onVoteChange={setVoteCount}
+                    />
                     <Button className="w-full" variant="outline">
                       📤 Compartilhar
                     </Button>
-                    {session.user?.id === issue.authorId && (
+                    {session?.user?.id === issue.authorId && (
                       <Button className="w-full" variant="outline">
                         ✏️ Editar
                       </Button>

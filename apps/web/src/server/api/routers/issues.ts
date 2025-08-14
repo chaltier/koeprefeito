@@ -60,7 +60,7 @@ export const issuesRouter = createTRPCRouter({
 
   getById: publicProcedure
     .input(z.object({ id: z.string() }))
-    .query(async ({ input }) => {
+    .query(async ({ input, ctx }) => {
       const issue = await prisma.issue.findUnique({
         where: { id: input.id },
         include: {
@@ -109,7 +109,24 @@ export const issuesRouter = createTRPCRouter({
         throw new Error("Issue not found");
       }
 
-      return issue;
+      // Get user's vote if authenticated
+      let userVote = null;
+      if (ctx.session?.user?.id) {
+        const vote = await prisma.vote.findUnique({
+          where: {
+            userId_issueId: {
+              userId: ctx.session.user.id,
+              issueId: input.id,
+            },
+          },
+        });
+        userVote = vote?.type || null;
+      }
+
+      return {
+        ...issue,
+        userVote,
+      };
     }),
 
   create: protectedProcedure
