@@ -7,17 +7,44 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Cores de Maricá - Vermelho como cor principal
         primary: {
+          50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          300: '#fca5a5',
+          400: '#f87171',
+          500: '#dc2626', // Vermelho principal da bandeira de Maricá
+          600: '#b91c1c',
+          700: '#991b1b',
+          800: '#7f1d1d',
+          900: '#641f1f',
+        },
+        // Azul secundário (complementar ao vermelho)
+        secondary: {
           50: '#eff6ff',
-          100: '#dbeafe', 
+          100: '#dbeafe',
           200: '#bfdbfe',
           300: '#93c5fd',
           400: '#60a5fa',
-          500: '#1E40AF',
-          600: '#1d4ed8',
+          500: '#1d4ed8', // Azul complementar
+          600: '#1e40af',
           700: '#1e3a8a',
-          800: '#1e3a8a',
-          900: '#1e2a5a',
+          800: '#1e293b',
+          900: '#0f172a',
+        },
+        // Vermelho Maricá (tons específicos)
+        marica: {
+          50: '#fef1f1',
+          100: '#fee4e2',
+          200: '#fecdd3',
+          300: '#fda4af',
+          400: '#fb7185',
+          500: '#e11d48', // Vermelho intenso Maricá
+          600: '#be123c',
+          700: '#9f1239',
+          800: '#881337',
+          900: '#701a2e',
         },
         success: {
           50: '#ecfdf5',

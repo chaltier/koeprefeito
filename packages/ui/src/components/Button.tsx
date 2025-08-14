@@ -8,13 +8,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-primary-500 text-white hover:bg-primary-600 shadow-sm",
-        secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200 shadow-sm",
-        outline: "border border-gray-300 bg-white text-gray-900 hover:bg-gray-50 shadow-sm",
-        ghost: "text-gray-900 hover:bg-gray-100",
-        destructive: "bg-error-500 text-white hover:bg-error-600 shadow-sm",
-        success: "bg-success-500 text-white hover:bg-success-600 shadow-sm",
-        warning: "bg-warning-500 text-white hover:bg-warning-600 shadow-sm",
+        primary: "bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200",
+        secondary: "bg-secondary-500 text-white hover:bg-secondary-600 active:bg-secondary-700 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200",
+        outline: "border-2 border-primary-500 bg-white text-primary-600 hover:bg-primary-50 hover:border-primary-600 shadow-sm hover:shadow-md transition-all duration-200",
+        ghost: "text-primary-600 hover:bg-primary-100 hover:text-primary-700 transition-all duration-200",
+        destructive: "bg-error-500 text-white hover:bg-error-600 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200",
+        success: "bg-success-500 text-white hover:bg-success-600 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200",
+        warning: "bg-warning-500 text-white hover:bg-warning-600 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200",
+        marica: "bg-marica-500 text-white hover:bg-marica-600 active:bg-marica-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200",
       },
       size: {
         sm: "h-8 px-3 text-xs",

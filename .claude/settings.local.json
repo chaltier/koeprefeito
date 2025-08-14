@@ -22,10 +22,20 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(pnpm install:*)"
+      "Bash(pnpm install:*)",
+      "Bash(pnpm dlx prisma:*)",
+      "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_yVq60jLQScXz@ep-sweet-unit-aexdcwy9-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require\" pnpm dlx prisma db push --schema=packages/database/prisma/schema.prisma)",
+      "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_yVq60jLQScXz@ep-sweet-unit-aexdcwy9-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require\" pnpm dlx prisma db push --schema=packages/database/prisma/schema.prisma --force-reset)",
+      "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_yVq60jLQScXz@ep-sweet-unit-aexdcwy9-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require\" pnpm dlx prisma db pull --schema=packages/database/prisma/schema.prisma)",
+      "Bash(gh api:*)",
+      "Bash(pnpm build:*)"
     ],
     "deny": [],
     "ask": [],
-    "defaultMode": "acceptEdits"
+    "defaultMode": "acceptEdits",
+    "additionalDirectories": [
+      "C:\\c\\Users\\Vader\\Desktop\\Projetos",
+      "C:\\c\\Users\\Vader"
+    ]
   }
 }
