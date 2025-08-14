@@ -130,7 +130,7 @@ export function CircularProgress({
   const strokeDasharray = circumference;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
-  const colorMap = {
+  const colorMap: Record<string, string> = {
     default: "stroke-gray-900",
     primary: "stroke-primary-600",
     success: "stroke-success-600",
