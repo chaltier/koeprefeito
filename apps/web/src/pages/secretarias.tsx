@@ -397,13 +397,14 @@ const secretarias = [
     observacao: "Centros de Informação Turística no Centro, Aeroporto/Codemar e móvel em eventos"
   },
   {
-    nome: "Secretaria de Urbanismo",
-    secretario: "A definir",
-    areas: ["Planejamento Urbano", "Licenciamento Urbanístico", "Ordenamento Territorial", "Projetos Urbanos"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "urbanismo@marica.rj.gov.br",
-    horario: "Segunda a sexta, de 8h às 17h"
+    nome: "Secretaria de Urbanismo e Planejamento Territorial",
+    secretario: "Sheila Nazareth Rodrigues",
+    areas: ["Plano Diretor Municipal", "Licenciamento de Obras Particulares", "Habite-se", "Desmembramentos e Remembramentos de Lotes", "Planejamento Urbano"],
+    endereco: "Rua Álvares de Castro, 607 - Eldorado",
+    telefone: "(21) 3731-9777 / (21) 97397-3902 (Ramal: 290)",
+    email: "urbanismo.maricarj@gmail.com / atendimento.urbanismo@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h",
+    cep: "24.900-000"
   }
 ];
 
