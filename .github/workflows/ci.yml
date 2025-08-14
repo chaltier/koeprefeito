@@ -140,7 +140,7 @@ jobs:
           NEXTAUTH_URL: http://localhost:3000
 
       - name: 📊 Upload coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         if: success()
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
