@@ -29,7 +29,10 @@
       "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_yVq60jLQScXz@ep-sweet-unit-aexdcwy9-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require\" pnpm dlx prisma db pull --schema=packages/database/prisma/schema.prisma)",
       "Bash(gh api:*)",
       "Bash(pnpm build:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "WebFetch(domain:www.marica.rj.gov.br)",
+      "WebSearch",
+      "WebFetch(domain:marica.rj.leg.br)"
     ],
     "deny": [],
     "ask": [],

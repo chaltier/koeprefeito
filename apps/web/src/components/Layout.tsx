@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useRef, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@koeprefeito/ui";
@@ -11,6 +11,22 @@ interface LayoutProps {
 export function Layout({ children, showHeader = true }: LayoutProps) {
   const { data: session } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [contatoDropdownOpen, setContatoDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Fechar dropdown quando clicar fora
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setContatoDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   if (!showHeader) {
     return <>{children}</>;
@@ -43,12 +59,45 @@ export function Layout({ children, showHeader = true }: LayoutProps) {
               >
                 Sobre
               </Link>
-              <Link
-                href="/contact"
-                className="text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200"
-              >
-                Contato
-              </Link>
+              
+              {/* Dropdown Contato */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setContatoDropdownOpen(!contatoDropdownOpen)}
+                  className="text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200 flex items-center gap-1"
+                >
+                  Contato
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${contatoDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {contatoDropdownOpen && (
+                  <div className="absolute left-0 mt-2 w-48 rounded-lg bg-white shadow-lg border border-gray-200 py-2 z-50">
+                    <Link
+                      href="/contact"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                      onClick={() => setContatoDropdownOpen(false)}
+                    >
+                      📧 Contato Geral
+                    </Link>
+                    <Link
+                      href="/secretarias"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                      onClick={() => setContatoDropdownOpen(false)}
+                    >
+                      🏛️ Secretarias
+                    </Link>
+                    <Link
+                      href="/vereadores"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                      onClick={() => setContatoDropdownOpen(false)}
+                    >
+                      👥 Vereadores
+                    </Link>
+                  </div>
+                )}
+              </div>
             </nav>
 
             {/* Desktop Auth */}
@@ -116,13 +165,34 @@ export function Layout({ children, showHeader = true }: LayoutProps) {
                 >
                   Sobre
                 </Link>
-                <Link
-                  href="/contact"
-                  className="text-gray-600 hover:text-primary-600 hover:bg-primary-100 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Contato
-                </Link>
+                
+                {/* Seção de Contato no Mobile */}
+                <div className="pt-2">
+                  <div className="text-xs font-semibold text-primary-700 uppercase tracking-wider px-3 py-1">
+                    Contato
+                  </div>
+                  <Link
+                    href="/contact"
+                    className="text-gray-600 hover:text-primary-600 hover:bg-primary-100 block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ml-3"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    📧 Contato Geral
+                  </Link>
+                  <Link
+                    href="/secretarias"
+                    className="text-gray-600 hover:text-primary-600 hover:bg-primary-100 block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ml-3"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    🏛️ Secretarias
+                  </Link>
+                  <Link
+                    href="/vereadores"
+                    className="text-gray-600 hover:text-primary-600 hover:bg-primary-100 block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ml-3"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    👥 Vereadores
+                  </Link>
+                </div>
                 
                 {/* Mobile Auth */}
                 <div className="border-t border-primary-200 pt-4 pb-3">
@@ -206,14 +276,32 @@ export function Layout({ children, showHeader = true }: LayoutProps) {
             
             <div>
               <h3 className="text-sm font-semibold text-primary-800 tracking-wider uppercase">
-                Suporte
+                Contatos
               </h3>
               <ul className="mt-4 space-y-4">
                 <li>
                   <Link href="/contact" className="text-gray-600 hover:text-primary-600 transition-colors duration-200">
-                    Contato
+                    Contato Geral
                   </Link>
                 </li>
+                <li>
+                  <Link href="/secretarias" className="text-gray-600 hover:text-primary-600 transition-colors duration-200">
+                    Secretarias
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/vereadores" className="text-gray-600 hover:text-primary-600 transition-colors duration-200">
+                    Vereadores
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-sm font-semibold text-primary-800 tracking-wider uppercase">
+                Legal
+              </h3>
+              <ul className="mt-4 space-y-4">
                 <li>
                   <Link href="/privacy" className="text-gray-600 hover:text-primary-600 transition-colors duration-200">
                     Privacidade
