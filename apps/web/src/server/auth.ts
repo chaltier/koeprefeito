@@ -20,6 +20,10 @@ declare module "next-auth" {
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "database",
+  },
   callbacks: {
     session: ({ session, user }) => ({
       ...session,
@@ -31,18 +35,16 @@ export const authOptions: NextAuthOptions = {
     }),
   },
   providers: [
-    ...(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
-      ? [
-          GoogleProvider({
-            clientId: env.GOOGLE_CLIENT_ID,
-            clientSecret: env.GOOGLE_CLIENT_SECRET,
-          }),
-        ]
-      : []),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
   ],
   pages: {
     signIn: "/auth/signin",
+    error: "/auth/error",
   },
+  debug: process.env.NODE_ENV === "development",
   events: {
     createUser: async ({ user }) => {
       // Definir role padrão como CITIZEN para novos usuários
