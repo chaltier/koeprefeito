@@ -84,7 +84,7 @@ export function VoteButton({ issueId, initialVotes, userVote, onVoteChange }: Vo
   return (
     <div className="flex items-center gap-2">
       <Button
-        variant={optimisticUserVote === "UP" ? "default" : "outline"}
+        variant={optimisticUserVote === "UP" ? "primary" : "outline"}
         size="sm"
         onClick={() => handleVote("UP")}
         disabled={voteIssue.isLoading}
