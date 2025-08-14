@@ -9,6 +9,8 @@ import { Badge } from "@koeprefeito/ui";
 import { api } from "~/utils/api";
 import { Layout } from "~/components/Layout";
 import { VoteButton } from "~/components/VoteButton";
+import { CommentForm } from "~/components/CommentForm";
+import { CommentsList } from "~/components/CommentsList";
 import { IssueCategory, IssueStatus, IssuePriority } from "@koeprefeito/database";
 
 const categoryLabels: Record<IssueCategory, string> = {
@@ -55,7 +57,7 @@ export default function IssuePage() {
   const { id } = router.query;
   const [voteCount, setVoteCount] = useState(0);
 
-  const { data: issue, isLoading, error } = api.issues.getById.useQuery(
+  const { data: issue, isLoading, error, refetch } = api.issues.getById.useQuery(
     { id: id as string },
     { 
       enabled: !!id,
@@ -64,6 +66,10 @@ export default function IssuePage() {
       }
     }
   );
+
+  const handleCommentAdded = () => {
+    refetch();
+  };
 
   if (isLoading) {
     return (
@@ -175,54 +181,21 @@ export default function IssuePage() {
             {/* Comments */}
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-center">
-                  <h2 className="text-xl font-semibold text-gray-900">
-                    Comentários ({issue.comments?.length || 0})
-                  </h2>
-                  {session && (
-                    <Button size="sm">
-                      Adicionar comentário
-                    </Button>
-                  )}
-                </div>
+                <h2 className="text-xl font-semibold text-gray-900">
+                  Comentários ({issue.comments?.length || 0})
+                </h2>
               </CardHeader>
-              <CardContent>
-                {issue.comments && issue.comments.length > 0 ? (
-                  <div className="space-y-4">
-                    {issue.comments.map((comment) => (
-                      <div key={comment.id} className="border-l-4 border-gray-200 pl-4">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="font-medium text-gray-900">
-                            {comment.author.name}
-                          </span>
-                          {comment.isOfficial && (
-                            <Badge variant="info" size="sm">
-                              Oficial
-                            </Badge>
-                          )}
-                          <span className="text-sm text-gray-500">
-                            {new Intl.DateTimeFormat("pt-BR", {
-                              day: "2-digit",
-                              month: "2-digit",
-                              year: "numeric",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            }).format(new Date(comment.createdAt))}
-                          </span>
-                        </div>
-                        <p className="text-gray-700">{comment.content}</p>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-8 text-gray-500">
-                    <svg className="mx-auto h-12 w-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
-                    <p>Nenhum comentário ainda</p>
-                    <p className="text-sm">Seja o primeiro a comentar nesta solicitação</p>
-                  </div>
-                )}
+              <CardContent className="space-y-6">
+                {/* Comment Form */}
+                <CommentForm 
+                  issueId={issue.id} 
+                  onCommentAdded={handleCommentAdded}
+                />
+                
+                {/* Comments List */}
+                <div className="border-t pt-6">
+                  <CommentsList comments={issue.comments || []} />
+                </div>
               </CardContent>
             </Card>
           </div>

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
 import { prisma } from "@koeprefeito/database";
-import { IssueCategory, IssueStatus, IssuePriority } from "@koeprefeito/database";
+import { IssueCategory, IssueStatus, IssuePriority, VoteType } from "@koeprefeito/database";
 
 export const issuesRouter = createTRPCRouter({
   getAll: publicProcedure
@@ -260,7 +260,7 @@ export const issuesRouter = createTRPCRouter({
     .input(
       z.object({
         issueId: z.string(),
-        type: z.enum(["UP", "DOWN"]),
+        type: z.nativeEnum(VoteType),
       })
     )
     .mutation(async ({ input, ctx }) => {
