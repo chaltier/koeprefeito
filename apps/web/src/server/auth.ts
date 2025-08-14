@@ -6,8 +6,8 @@ import {
 } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
-import { env } from "~/env.mjs";
-import { prisma } from "@koeprefeito/database";
+// import { env } from "~/env.mjs";
+// import { prisma } from "@koeprefeito/database";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -18,12 +18,18 @@ declare module "next-auth" {
   }
 }
 
+// Verificar se as variáveis essenciais existem
+console.log("Environment check:", {
+  hasSecret: !!process.env.NEXTAUTH_SECRET,
+  hasUrl: !!process.env.NEXTAUTH_URL,
+  hasGoogleId: !!process.env.GOOGLE_CLIENT_ID,
+  hasGoogleSecret: !!process.env.GOOGLE_CLIENT_SECRET,
+});
+
 export const authOptions: NextAuthOptions = {
-  // Temporariamente removendo adapter para debug
-  // adapter: PrismaAdapter(prisma),
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || "fallback-secret-for-testing",
   session: {
-    strategy: "jwt", // Mudando para JWT temporariamente
+    strategy: "jwt",
   },
   callbacks: {
     session: ({ session, token }) => ({
@@ -31,19 +37,15 @@ export const authOptions: NextAuthOptions = {
       user: {
         ...session.user,
         id: token.sub!,
-        role: "CITIZEN", // Default role for now
+        role: "CITIZEN",
       },
     }),
   },
   providers: [
-    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
-      ? [
-          GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-          }),
-        ]
-      : []),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    }),
   ],
   pages: {
     signIn: "/auth/signin",
