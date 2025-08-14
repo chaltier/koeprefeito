@@ -6,8 +6,8 @@ import {
 } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
-// import { env } from "~/env.mjs";
-// import { prisma } from "@koeprefeito/database";
+import { env } from "~/env.mjs";
+import { prisma } from "@koeprefeito/database";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -18,70 +18,48 @@ declare module "next-auth" {
   }
 }
 
-// Verificar se as variáveis essenciais existem
-console.log("Environment check:", {
-  hasSecret: !!process.env.NEXTAUTH_SECRET,
-  hasUrl: !!process.env.NEXTAUTH_URL,
-  hasGoogleId: !!process.env.GOOGLE_CLIENT_ID,
-  hasGoogleSecret: !!process.env.GOOGLE_CLIENT_SECRET,
-});
+// Environment variables should now be properly configured in Vercel
 
 export const authOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET || "fallback-secret-for-testing",
+  adapter: PrismaAdapter(prisma),
+  secret: env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt",
+    strategy: "database",
   },
   callbacks: {
-    session: ({ session, token }) => ({
+    session: ({ session, user }) => ({
       ...session,
       user: {
         ...session.user,
-        id: token.sub!,
-        role: "CITIZEN",
+        id: user.id,
+        role: (user as any).role,
       },
     }),
   },
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      clientId: env.GOOGLE_CLIENT_ID!,
+      clientSecret: env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
   pages: {
     signIn: "/auth/signin",
     error: "/auth/error",
   },
-  debug: true,
-  logger: {
-    error(code, metadata) {
-      console.error("NextAuth Error:", code, metadata);
-    },
-    warn(code) {
-      console.warn("NextAuth Warning:", code);
-    },
-    debug(code, metadata) {
-      console.log("NextAuth Debug:", code, metadata);
+  debug: process.env.NODE_ENV === "development",
+  events: {
+    createUser: async ({ user }) => {
+      try {
+        // Definir role padrão como CITIZEN para novos usuários
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { role: "CITIZEN" },
+        });
+      } catch (error) {
+        console.error("Error setting default role for user:", error);
+      }
     },
   },
-  // Removendo events temporariamente para debug
-  // events: {
-  //   createUser: async ({ user }) => {
-  //     try {
-  //       console.log("Creating user with role CITIZEN:", user.id);
-  //       await prisma.user.update({
-  //         where: { id: user.id },
-  //         data: { role: "CITIZEN" },
-  //       });
-  //       console.log("User role set successfully");
-  //     } catch (error) {
-  //       console.error("Error setting default role for user:", error);
-  //     }
-  //   },
-  //   signIn: async ({ user, account, profile }) => {
-  //     console.log("User signing in:", { userId: user.id, account: account?.provider });
-  //     return true;
-  //   },
-  // },
 };
 
 export const getServerAuthSession = (ctx: {
