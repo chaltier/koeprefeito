@@ -9,7 +9,11 @@ export const env = createEnv({
         ? z.string().min(1)
         : z.string().min(1).optional(),
     NEXTAUTH_URL: z.preprocess(
-      (str) => process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : str,
+      (str) => {
+        if (process.env.NEXTAUTH_URL) return process.env.NEXTAUTH_URL;
+        if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+        return str;
+      },
       z.string().url()
     ),
     GOOGLE_CLIENT_ID: z.string().optional(),

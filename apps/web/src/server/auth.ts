@@ -19,18 +19,19 @@ declare module "next-auth" {
 }
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  // Temporariamente removendo adapter para debug
+  // adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "database",
+    strategy: "jwt", // Mudando para JWT temporariamente
   },
   callbacks: {
-    session: ({ session, user }) => ({
+    session: ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
-        role: (user as any).role,
+        id: token.sub!,
+        role: "CITIZEN", // Default role for now
       },
     }),
   },
@@ -48,20 +49,37 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
     error: "/auth/error",
   },
-  debug: process.env.NODE_ENV === "development",
-  events: {
-    createUser: async ({ user }) => {
-      try {
-        // Definir role padrão como CITIZEN para novos usuários
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { role: "CITIZEN" },
-        });
-      } catch (error) {
-        console.error("Error setting default role for user:", error);
-      }
+  debug: true,
+  logger: {
+    error(code, metadata) {
+      console.error("NextAuth Error:", code, metadata);
+    },
+    warn(code) {
+      console.warn("NextAuth Warning:", code);
+    },
+    debug(code, metadata) {
+      console.log("NextAuth Debug:", code, metadata);
     },
   },
+  // Removendo events temporariamente para debug
+  // events: {
+  //   createUser: async ({ user }) => {
+  //     try {
+  //       console.log("Creating user with role CITIZEN:", user.id);
+  //       await prisma.user.update({
+  //         where: { id: user.id },
+  //         data: { role: "CITIZEN" },
+  //       });
+  //       console.log("User role set successfully");
+  //     } catch (error) {
+  //       console.error("Error setting default role for user:", error);
+  //     }
+  //   },
+  //   signIn: async ({ user, account, profile }) => {
+  //     console.log("User signing in:", { userId: user.id, account: account?.provider });
+  //     return true;
+  //   },
+  // },
 };
 
 export const getServerAuthSession = (ctx: {
