@@ -61,14 +61,14 @@ export default function Dashboard() {
       <div className="min-h-screen bg-gray-50">
         <header className="bg-white shadow">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-6">
-              <div className="flex items-center gap-8">
+            <div className="flex justify-between items-center py-4 lg:py-6">
+              <div className="flex items-center gap-4 lg:gap-8">
                 <Link href="/dashboard">
-                  <h1 className="text-3xl font-bold text-primary-600">
+                  <h1 className="text-2xl lg:text-3xl font-bold text-primary-600">
                     KoePrefeito
                   </h1>
                 </Link>
-                <nav className="flex items-center gap-6">
+                <nav className="hidden sm:flex items-center gap-4 lg:gap-6">
                   <Link href="/issues" className="text-gray-600 hover:text-gray-900 font-medium">
                     Solicitações
                   </Link>
@@ -77,8 +77,8 @@ export default function Dashboard() {
                   </Link>
                 </nav>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 lg:gap-4">
+                <div className="hidden sm:flex items-center gap-3">
                   {session.user?.image && (
                     <img
                       className="h-8 w-8 rounded-full"
@@ -86,7 +86,7 @@ export default function Dashboard() {
                       alt={session.user.name || ""}
                     />
                   )}
-                  <div className="text-sm">
+                  <div className="text-sm hidden lg:block">
                     <p className="font-medium text-gray-900">
                       {session.user?.name}
                     </p>
@@ -97,6 +97,7 @@ export default function Dashboard() {
                   onClick={() => signOut({ callbackUrl: "/" })}
                   variant="outline"
                   size="sm"
+                  className="text-sm"
                 >
                   Sair
                 </Button>
