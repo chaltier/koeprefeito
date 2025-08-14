@@ -168,7 +168,7 @@ export function CircularProgress({
           strokeDashoffset={strokeDashoffset}
           strokeLinecap="round"
           className={cn(
-            colorMap[variant],
+            colorMap[variant || "default"],
             "transition-all duration-300 ease-in-out"
           )}
         />
