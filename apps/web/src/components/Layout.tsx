@@ -228,7 +228,7 @@ export function Layout({ children, showHeader = true }: LayoutProps) {
           
           <div className="mt-8 border-t border-gray-200 pt-8">
             <p className="text-center text-gray-500 text-sm">
-              © 2024 KoePrefeito. Todos os direitos reservados.
+              © 2025 KoePrefeito. Todos os direitos reservados.
             </p>
           </div>
         </div>

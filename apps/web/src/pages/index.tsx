@@ -171,7 +171,7 @@ export default function Home() {
               Conectando cidadãos e governo municipal para uma cidade melhor.
             </p>
             <p className="mt-8 text-center text-gray-500 text-sm">
-              © 2024 KoePrefeito. Todos os direitos reservados.
+              © 2025 KoePrefeito. Todos os direitos reservados.
             </p>
           </div>
         </div>
