@@ -54,6 +54,12 @@ export function Layout({ children, showHeader = true }: LayoutProps) {
                 Solicitações
               </Link>
               <Link
+                href="/prefeito"
+                className="text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200"
+              >
+                Prefeito
+              </Link>
+              <Link
                 href="/about"
                 className="text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200"
               >
@@ -159,6 +165,13 @@ export function Layout({ children, showHeader = true }: LayoutProps) {
                   Solicitações
                 </Link>
                 <Link
+                  href="/prefeito"
+                  className="text-gray-600 hover:text-primary-600 hover:bg-primary-100 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Prefeito
+                </Link>
+                <Link
                   href="/about"
                   className="text-gray-600 hover:text-primary-600 hover:bg-primary-100 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
                   onClick={() => setMobileMenuOpen(false)}
@@ -259,6 +272,11 @@ export function Layout({ children, showHeader = true }: LayoutProps) {
                 <li>
                   <Link href="/issues" className="text-gray-600 hover:text-primary-600 transition-colors duration-200">
                     Solicitações
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/prefeito" className="text-gray-600 hover:text-primary-600 transition-colors duration-200">
+                    Prefeito
                   </Link>
                 </li>
                 <li>
