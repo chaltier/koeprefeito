@@ -55,10 +55,7 @@ export const issuesRouter = createTRPCRouter({
         nextCursor = nextItem!.id;
       }
 
-      return {
-        issues,
-        nextCursor,
-      };
+      return issues;
     }),
 
   getById: publicProcedure

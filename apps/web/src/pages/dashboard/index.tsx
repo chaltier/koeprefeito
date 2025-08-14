@@ -2,6 +2,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { Button } from "@koeprefeito/ui";
 import { Card, CardContent, CardHeader } from "@koeprefeito/ui";
 import { Badge } from "@koeprefeito/ui";
@@ -48,10 +49,20 @@ export default function Dashboard() {
         <header className="bg-white shadow">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
-              <div className="flex items-center">
-                <h1 className="text-3xl font-bold text-primary-600">
-                  KoePrefeito
-                </h1>
+              <div className="flex items-center gap-8">
+                <Link href="/dashboard">
+                  <h1 className="text-3xl font-bold text-primary-600">
+                    KoePrefeito
+                  </h1>
+                </Link>
+                <nav className="flex items-center gap-6">
+                  <Link href="/issues" className="text-gray-600 hover:text-gray-900 font-medium">
+                    Solicitações
+                  </Link>
+                  <Link href="/dashboard" className="text-gray-600 hover:text-gray-900 font-medium">
+                    Dashboard
+                  </Link>
+                </nav>
               </div>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-3">
@@ -106,9 +117,11 @@ export default function Dashboard() {
                       Solicitações enviadas
                     </p>
                   </div>
-                  <Button className="w-full" size="sm">
-                    Nova Solicitação
-                  </Button>
+                  <Link href="/issues/new">
+                    <Button className="w-full" size="sm">
+                      Nova Solicitação
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
 
@@ -189,9 +202,11 @@ export default function Dashboard() {
                       Comece criando sua primeira solicitação para a prefeitura.
                     </p>
                     <div className="mt-6">
-                      <Button>
-                        Criar primeira solicitação
-                      </Button>
+                      <Link href="/issues/new">
+                        <Button>
+                          Criar primeira solicitação
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </CardContent>
