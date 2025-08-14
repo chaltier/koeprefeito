@@ -269,6 +269,27 @@ export default function IssuesPage() {
                               </svg>
                               {issue._count?.comments || 0}
                             </span>
+                            <span className="flex items-center gap-1 text-primary-600 font-medium">
+                              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              {(() => {
+                                const now = new Date();
+                                const created = new Date(issue.createdAt);
+                                const diffTime = Math.abs(now.getTime() - created.getTime());
+                                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                                const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                
+                                if (diffDays > 0) {
+                                  return `${diffDays}d`;
+                                } else if (diffHours > 0) {
+                                  return `${diffHours}h`;
+                                } else {
+                                  const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+                                  return `${diffMinutes}m`;
+                                }
+                              })()}
+                            </span>
                             <time dateTime={issue.createdAt.toISOString()}>
                               {new Intl.DateTimeFormat("pt-BR", {
                                 day: "2-digit",

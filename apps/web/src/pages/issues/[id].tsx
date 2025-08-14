@@ -330,6 +330,27 @@ export default function IssuePage() {
                     <span className="text-sm text-gray-600">Comentários</span>
                     <span className="font-medium">{issue.comments?.length || 0}</span>
                   </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Tempo ativo</span>
+                    <span className="font-medium text-sm">
+                      {(() => {
+                        const now = new Date();
+                        const created = new Date(issue.createdAt);
+                        const diffTime = Math.abs(now.getTime() - created.getTime());
+                        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                        const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        
+                        if (diffDays > 0) {
+                          return `${diffDays}d ${diffHours}h`;
+                        } else if (diffHours > 0) {
+                          return `${diffHours}h`;
+                        } else {
+                          const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+                          return `${diffMinutes}m`;
+                        }
+                      })()
+                    }</span>
+                  </div>
                   {issue.resolvedAt && (
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-gray-600">Resolvido em</span>
@@ -364,9 +385,11 @@ export default function IssuePage() {
                       📤 Compartilhar
                     </Button>
                     {session?.user?.id === issue.authorId && (
-                      <Button className="w-full" variant="outline">
-                        ✏️ Editar
-                      </Button>
+                      <Link href={`/issues/${issue.id}/edit`}>
+                        <Button className="w-full" variant="outline">
+                          ✏️ Editar
+                        </Button>
+                      </Link>
                     )}
                   </div>
                 </CardContent>
