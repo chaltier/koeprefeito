@@ -157,6 +157,48 @@ export default function IssuePage() {
               </CardContent>
             </Card>
 
+            {/* Images */}
+            {issue.images && issue.images.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <h2 className="text-xl font-semibold text-gray-900">
+                    Fotos ({issue.images.length})
+                  </h2>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {issue.images.map((image, index) => (
+                      <div key={index} className="aspect-square rounded-lg overflow-hidden bg-gray-100 group cursor-pointer">
+                        <img
+                          src={image}
+                          alt={`Foto ${index + 1} da solicitação`}
+                          className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.parentElement!.innerHTML = `
+                              <div class="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="ml-2 text-sm">Erro ao carregar</span>
+                              </div>
+                            `;
+                          }}
+                          onClick={() => {
+                            // Abrir modal com imagem ampliada (implementação futura)
+                            window.open(image, '_blank');
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-sm text-gray-500 mt-3">
+                    💡 Clique nas imagens para visualizar em tamanho maior
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
             {/* Location */}
             <Card>
               <CardHeader>

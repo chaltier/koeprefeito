@@ -214,6 +214,30 @@ export default function IssuesPage() {
                             <p className="text-gray-600 text-sm line-clamp-2">
                               {issue.description}
                             </p>
+                            
+                            {/* Imagens da solicitação */}
+                            {issue.images && issue.images.length > 0 && (
+                              <div className="flex gap-2 mt-3">
+                                {issue.images.slice(0, 3).map((image, index) => (
+                                  <div key={index} className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100">
+                                    <img
+                                      src={image}
+                                      alt={`Foto ${index + 1}`}
+                                      className="w-full h-full object-cover"
+                                      onError={(e) => {
+                                        const target = e.target as HTMLImageElement;
+                                        target.style.display = 'none';
+                                      }}
+                                    />
+                                  </div>
+                                ))}
+                                {issue.images.length > 3 && (
+                                  <div className="w-16 h-16 rounded-lg bg-gray-100 flex items-center justify-center text-xs text-gray-500 font-medium">
+                                    +{issue.images.length - 3}
+                                  </div>
+                                )}
+                              </div>
+                            )}
                           </div>
                           <div className="ml-4 flex flex-col items-end gap-2">
                             <Badge variant={statusColors[issue.status]}>

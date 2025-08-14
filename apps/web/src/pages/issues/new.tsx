@@ -9,6 +9,7 @@ import { Input } from "@koeprefeito/ui";
 import { api } from "~/utils/api";
 import { Layout } from "~/components/Layout";
 import { ImageUpload } from "~/components/ImageUpload";
+import { CepSearch } from "~/components/CepSearch";
 import { IssueCategory, IssuePriority } from "@koeprefeito/database";
 
 interface FormData {
@@ -333,19 +334,10 @@ export default function NewIssuePage() {
               {/* Step 2: Location */}
               {currentStep === 2 && (
                 <>
-                  <div>
-                    <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">
-                      Endereço *
-                    </label>
-                    <Input
-                      id="address"
-                      type="text"
-                      placeholder="Ex: Rua das Flores, 123 - Vila Madalena, São Paulo - SP"
-                      value={formData.address}
-                      onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
-                      required
-                    />
-                  </div>
+                  <CepSearch
+                    onAddressChange={(address) => setFormData(prev => ({ ...prev, address }))}
+                    initialValue={formData.address}
+                  />
 
                   <div className="flex items-center gap-4">
                     <Button
@@ -356,7 +348,7 @@ export default function NewIssuePage() {
                       📍 Usar minha localização
                     </Button>
                     <span className="text-sm text-gray-500">
-                      Ou digite o endereço manualmente acima
+                      Para capturar coordenadas GPS precisas
                     </span>
                   </div>
 
