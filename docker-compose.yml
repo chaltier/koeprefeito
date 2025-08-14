@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: koeprefeito-postgres
+    environment:
+      POSTGRES_USER: koeprefeito
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: koeprefeito
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - koeprefeito-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: koeprefeito-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - koeprefeito-network
+    command: redis-server --appendonly yes
+
+  adminer:
+    image: adminer:latest
+    container_name: koeprefeito-adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - koeprefeito-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  koeprefeito-network:
+    driver: bridge

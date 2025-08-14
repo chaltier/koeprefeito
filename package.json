@@ -1,0 +1,47 @@
+{
+  "name": "koeprefeito",
+  "version": "1.0.0",
+  "description": "Plataforma de civic tech municipal - KoePrefeito",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=web",
+    "build:web": "turbo run build --filter=web",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean",
+    "db:generate": "turbo run db:generate",
+    "db:push": "turbo run db:push",
+    "db:studio": "turbo run db:studio",
+    "db:seed": "turbo run db:seed",
+    "db:reset": "turbo run db:reset",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "setup": "pnpm install && pnpm docker:up && sleep 5 && pnpm db:generate && pnpm db:push && pnpm db:seed",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\""
+  },
+  "devDependencies": {
+    "@turbo/gen": "^1.11.2",
+    "turbo": "^1.11.2",
+    "prettier": "^3.1.1",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/org/koeprefeito.git"
+  },
+  "author": "Equipe KoePrefeito",
+  "license": "MIT"
+}
