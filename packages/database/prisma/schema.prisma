@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,22 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// NextAuth models
 model Account {
   id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -50,115 +45,95 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
-// Application models
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  role          UserRole  @default(CITIZEN)
-  cpf           String?   @unique
-  phone         String?
-  address       String?
-  city          String?
-  state         String?
-  zipCode       String?
-  isActive      Boolean   @default(true)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  // Relations
-  accounts Account[]
-  sessions Session[]
-  authoredIssues   Issue[] @relation("IssueAuthor")
-  assignedIssues   Issue[] @relation("IssueAssignee")
-  comments Comment[]
-  votes    Vote[]
+  id             String    @id @default(cuid())
+  name           String?
+  email          String    @unique
+  emailVerified  DateTime?
+  image          String?
+  role           UserRole  @default(CITIZEN)
+  cpf            String?   @unique
+  phone          String?
+  address        String?
+  city           String?
+  state          String?
+  zipCode        String?
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  accounts       Account[]
+  comments       Comment[]
+  assignedIssues Issue[]   @relation("IssueAssignee")
+  authoredIssues Issue[]   @relation("IssueAuthor")
+  sessions       Session[]
+  votes          Vote[]
 
   @@map("users")
 }
 
 model Issue {
-  id          String        @id @default(cuid())
-  title       String
-  description String        @db.Text
-  category    IssueCategory
-  status      IssueStatus   @default(OPEN)
-  priority    IssuePriority @default(MEDIUM)
-  
-  // Location data
-  latitude    Float
-  longitude   Float
-  address     String
-  
-  // Media
-  images      String[]      @default([])
-  
-  // Metadata
-  authorId    String
+  id           String        @id @default(cuid())
+  title        String
+  description  String
+  category     IssueCategory
+  status       IssueStatus   @default(OPEN)
+  priority     IssuePriority @default(MEDIUM)
+  latitude     Float
+  longitude    Float
+  address      String
+  images       String[]      @default([])
+  authorId     String
   assignedToId String?
-  resolvedAt  DateTime?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-
-  // Relations
-  author      User          @relation("IssueAuthor", fields: [authorId], references: [id])
-  assignedTo  User?         @relation("IssueAssignee", fields: [assignedToId], references: [id])
-  comments    Comment[]
-  votes       Vote[]
-  attachments Attachment[]
+  resolvedAt   DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  attachments  Attachment[]
+  comments     Comment[]
+  assignedTo   User?         @relation("IssueAssignee", fields: [assignedToId], references: [id])
+  author       User          @relation("IssueAuthor", fields: [authorId], references: [id])
+  votes        Vote[]
 
   @@map("issues")
 }
 
 model Comment {
-  id        String   @id @default(cuid())
-  content   String   @db.Text
-  isOfficial Boolean @default(false)
-  
-  // Relations
-  issueId   String
-  authorId  String
-  issue     Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
-  author    User     @relation(fields: [authorId], references: [id])
-  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(cuid())
+  content    String
+  isOfficial Boolean  @default(false)
+  issueId    String
+  authorId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  author     User     @relation(fields: [authorId], references: [id])
+  issue      Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
 
   @@map("comments")
 }
 
 model Vote {
-  id      String   @id @default(cuid())
-  type    VoteType
-  
-  // Relations
-  userId  String
-  issueId String
-  user    User     @relation(fields: [userId], references: [id])
-  issue   Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
-  
+  id        String   @id @default(cuid())
+  type      VoteType
+  userId    String
+  issueId   String
   createdAt DateTime @default(now())
+  issue     Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, issueId])
   @@map("votes")
 }
 
 model Attachment {
-  id          String      @id @default(cuid())
-  filename    String
+  id           String         @id @default(cuid())
+  filename     String
   originalName String
-  mimeType    String
-  size        Int
-  url         String
-  type        AttachmentType
-  
-  // Relations
-  issueId     String
-  issue       Issue       @relation(fields: [issueId], references: [id], onDelete: Cascade)
-  
-  createdAt   DateTime    @default(now())
+  mimeType     String
+  size         Int
+  url          String
+  type         AttachmentType
+  issueId      String
+  createdAt    DateTime       @default(now())
+  issue        Issue          @relation(fields: [issueId], references: [id], onDelete: Cascade)
 
   @@map("attachments")
 }
@@ -166,20 +141,16 @@ model Attachment {
 model Notification {
   id        String           @id @default(cuid())
   title     String
-  message   String           @db.Text
+  message   String
   type      NotificationType
   isRead    Boolean          @default(false)
-  
-  // Relations
   userId    String
   issueId   String?
-  
   createdAt DateTime         @default(now())
 
   @@map("notifications")
 }
 
-// Enums
 enum UserRole {
   CITIZEN
   ADMIN
