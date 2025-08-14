@@ -11,6 +11,17 @@ import { Layout } from "~/components/Layout";
 import { ImageUpload } from "~/components/ImageUpload";
 import { IssueCategory, IssuePriority } from "@koeprefeito/database";
 
+interface FormData {
+  title: string;
+  description: string;
+  category: IssueCategory;
+  priority: IssuePriority;
+  address: string;
+  latitude: number;
+  longitude: number;
+  images: string[];
+}
+
 const categoryLabels: Record<IssueCategory, string> = {
   INFRASTRUCTURE: "Infraestrutura",
   SECURITY: "Segurança",
@@ -35,7 +46,7 @@ export default function NewIssuePage() {
   const [currentStep, setCurrentStep] = useState(1);
 
   // Form state
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",
     category: IssueCategory.OTHER,
@@ -43,7 +54,7 @@ export default function NewIssuePage() {
     address: "",
     latitude: 0,
     longitude: 0,
-    images: [] as string[],
+    images: [],
   });
 
   const createIssue = api.issues.create.useMutation({
