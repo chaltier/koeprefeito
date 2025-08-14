@@ -7,123 +7,162 @@ const secretarias = [
   {
     nome: "Secretaria Municipal de Administração",
     secretario: "Gecimar Jorge de Aragão",
-    areas: ["Recursos Humanos", "Administração Geral", "Patrimônio"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "administracao@marica.rj.gov.br"
+    areas: ["Licitações Públicas", "Gestão de Patrimônio", "Frota Municipal", "Arquivo Municipal", "Agências dos Correios"],
+    endereco: "Rua Álvares de Castro, 346 - térreo - Centro",
+    telefone: "(21) 2637-3706 (Ramal: 105)",
+    email: "admprefmarica@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h"
   },
   {
-    nome: "Secretaria Municipal de Educação", 
+    nome: "Secretaria Municipal de Educação (SEMED)", 
     secretario: "Professor Rodrigo Moura",
-    areas: ["Ensino Fundamental", "Educação Infantil", "Programas Educacionais"],
-    endereco: "Rua Bacelar da Silva Bezerra, 121 - Centro",
-    telefone: "(21) 2637-8817",
-    email: "gabineteeducacaosme@gmail.com"
+    areas: ["77 Unidades Educacionais", "Educação Integral", "Passaporte Universitário", "Programa Corujinhas"],
+    endereco: "Rua Nossa Senhora do Amparo, 196 - Centro",
+    telefone: "(21) 2637-3706 / (21) 2637-4205",
+    email: "gabinete.educacao@educ.marica.rj.gov.br",
+    horario: "Segunda a sexta, de 8h às 17h",
+    observacao: "Gestão das políticas públicas educacionais com foco na Educação Integral, Democrática e Inclusiva"
   },
   {
     nome: "Secretaria Municipal de Saúde",
     secretario: "Marcelo Costa Velho Mendes de Azevedo",
-    areas: ["Atenção Básica", "Urgência e Emergência", "Vigilância Sanitária"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "saude@marica.rj.gov.br",
-    observacao: "26 Unidades de Saúde da Família (USF) nos quatro distritos"
+    areas: ["Atenção Básica", "Urgência e Emergência", "Vigilância Sanitária", "26 USF nos 4 distritos"],
+    endereco: "Rua Clímaco Pereira, 367 - Centro (próximo ao Caps 3)",
+    telefone: "(21) 99140-0674 (Ramal: 433)",
+    email: "saudemaricapmm@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h",
+    observacao: "26 Unidades de Saúde da Família (USF) nos quatro distritos da cidade"
   },
   {
-    nome: "Secretaria Municipal de Segurança Cidadã",
+    nome: "Secretaria de Assistência Social e Cidadania",
+    secretario: "Dryene Tavares Arêas Silva",
+    areas: ["CRAS", "CREAS", "Programas Sociais", "Sistema Único de Assistência Social (SUAS)"],
+    endereco: "Rua Domício da Gama, lote 4, quadra 14, loja 1 - Centro", 
+    telefone: "(21) 2637-3648 / (21) 2634-0823",
+    email: "assistenciasocial@marica.rj.gov.br",
+    horario: "Segunda a sexta, de 8h às 17h"
+  },
+  {
+    nome: "Secretaria de Segurança Cidadã (SESEG)",
     secretario: "Julio Cesar Veras Vieira",
-    areas: ["Guarda Municipal", "Defesa Civil", "Trânsito"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2010",
-    email: "seguranca@marica.rj.gov.br"
+    areas: ["Guarda Municipal (329 guardas)", "PROEIS com PM", "Inteligência e Políticas de Segurança"],
+    endereco: "Rua Luiz Alberto Ramos Machado, lote 14, quadra K - Parque Eldorado",
+    telefone: "(21) 2648-0269 (Ramal: 1007)",
+    email: "gabinete.segurancacidada@marica.rj.gov.br",
+    horario: "Segunda a sexta, de 8h às 17h"
   },
   {
-    nome: "Secretaria Municipal de Meio Ambiente e Sustentabilidade",
-    secretario: "Helter Viana Ferreira de Almeida",
-    areas: ["Licenciamento Ambiental", "Fiscalização", "Sustentabilidade"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "meioambiente@marica.rj.gov.br"
+    nome: "Secretaria de Economia Solidária e Empreendedorismo Social",
+    secretario: "Matheus Silva do Amparo (Matheus Gaúcho)",
+    areas: ["Renda Básica da Cidadania", "Mumbuca Futuro", "Combate à Pobreza", "Cooperativas"],
+    endereco: "Rua Abreu Rangel, 138 - Centro",
+    telefone: "(21) 2042-7222 (Ramal: 4501 e 459)",
+    email: "economiasolidariamarica@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h"
   },
   {
-    nome: "Secretaria Municipal de Assistência Social e Cidadania",
-    secretario: "A definir",
-    areas: ["CRAS", "CREAS", "Programas Sociais"],
-    endereco: "Rua Álvares de Castro, 346 - Centro", 
-    telefone: "(21) 2637-2052",
-    email: "assistenciasocial@marica.rj.gov.br"
+    nome: "Secretaria de Turismo, Comércio, Indústria e Mercado Interno (STCIM)",
+    secretario: "José Alexandre Almeida da Silva",
+    areas: ["Carnaval", "Festa da Pesca", "Natal Iluminado", "Pratas da Casa", "Feirarte", "Centros de Informações Turísticas"],
+    endereco: "Rua Domício da Gama, 259 - Centro",
+    telefone: "(21) 2042-7222 (Ramal: 1240)",
+    email: "turismo@marica.rj.gov.br",
+    horario: "Segunda a sexta, de 8h às 17h"
   },
   {
-    nome: "Secretaria Municipal de Obras e Urbanismo",
-    secretario: "A definir",
-    areas: ["Obras Públicas", "Manutenção Urbana", "Pavimentação"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "obras@marica.rj.gov.br"
+    nome: "Secretaria de Cultura e das Utopias",
+    secretario: "Sady Bianchin",
+    areas: ["Atividades Artísticas", "Patrimônio Cultural", "Eventos Culturais", "Difusão Cultural"],
+    endereco: "Rua Adelaide de Souza Bezerra, 104 - Centro",
+    telefone: "(21) 2634-1165 / (21) 99748-9433 (Ramal: 1302)",
+    email: "gabinetecultura@marica.rj.gov.br / cultura@marica.rj.gov.br",
+    horario: "Segunda a sexta, de 8h às 17h"
   },
   {
-    nome: "Secretaria Municipal de Economia Solidária e Empreendedorismo Social",
-    secretario: "A definir",
-    areas: ["Microcrédito", "Cooperativas", "Economia Solidária"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "economia@marica.rj.gov.br"
+    nome: "Secretaria de Esporte e Lazer",
+    secretario: "Filipe Dias Bittencourt",
+    areas: ["30+ Modalidades Gratuitas", "Ginástica", "Ballet", "Vôlei", "Futebol", "Artes Marciais", "Esportes Aquáticos"],
+    endereco: "Avenida Roberto Silveira, 46, 2º andar - Centro",
+    telefone: "(21) 2042-7222 (Ramal: 2102)",
+    email: "esportemarica@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h",
+    cep: "24.900-445"
   },
   {
-    nome: "Secretaria Municipal de Transição Climática e Resiliência Ambiental",
-    secretario: "A definir",
-    areas: ["Mudanças Climáticas", "Sustentabilidade", "Resiliência"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "climatica@marica.rj.gov.br"
+    nome: "Secretaria de Agricultura e Pecuária",
+    secretario: "Wagner de Barros Soares",
+    areas: ["Agroecologia", "Vacinação Gratuita de Gado", "Gestão Pesqueira", "Hortas Comunitárias", "Distribuição de Mudas Nativas"],
+    endereco: "Rodovia Vereador Oldemar Guedes de Figueirado, Km 1, s/nº - Ubatiba",
+    telefone: "(21) 99909-8116",
+    email: "adm.secapmarica@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h"
   },
   {
-    nome: "Secretaria Municipal de Esporte e Lazer",
-    secretario: "A definir",
-    areas: ["Esportes", "Recreação", "Equipamentos Esportivos"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "esporte@marica.rj.gov.br"
+    nome: "Secretaria de Bem-Estar Animal",
+    secretario: "Robson Teixeira da Silva (Robgol)",
+    areas: ["Castração Gratuita", "Campanhas de Adoção", "Vacinação Animal", "Socialização de Animais"],
+    endereco: "Rua Prefeito Hilário Costa e Silva, 100 - Parque Eldorado",
+    telefone: "(21) 97556-7695",
+    email: "protecaoanimal@marica.rj.gov.br",
+    horario: "Segunda a sexta, de 8h às 17h"
   },
   {
-    nome: "Secretaria Municipal de Cultura",
-    secretario: "A definir",
-    areas: ["Patrimônio Cultural", "Eventos", "Arte e Cultura"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "cultura@marica.rj.gov.br"
+    nome: "Secretaria de Habitação",
+    secretario: "Marcus Toselli (Marcus Bambam)",
+    areas: ["Regularização Fundiária", "Melhorias Habitacionais", "Auxílio Aluguel Social", "Relocações"],
+    endereco: "Rua Álvares de Castro, 586 - Araçatiba",
+    telefone: "(21) 2042-7222 (Ramal: 2503)",
+    email: "habitacaomarica@gmail.com / secretariahabitacao@marica.rj.gov.br",
+    horario: "Segunda a sexta, de 8h às 17h",
+    whatsapp: "(21) 99169-7458"
   },
   {
-    nome: "Secretaria Municipal de Turismo",
-    secretario: "A definir",
-    areas: ["Desenvolvimento Turístico", "Promoção", "Eventos"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "turismo@marica.rj.gov.br"
+    nome: "Secretaria de Transportes e Postura (SEMTRANS)",
+    secretario: "Andre Luis Azeredo da Silva (André Casquinha)",
+    areas: ["Transporte Público", "Taxi/Moto-taxi", "Van Escolar", "Posturas 1º ao 4º Distrito"],
+    endereco: "Rodovia Amaral Peixoto, Km 21,5 - Centro Administrativo Integrado - São José do Imbassaí",
+    telefone: "(21) 2637-3706 / (21) 2637-4208 / (21) 99698-3699",
+    email: "semtransmarica@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h",
+    observacao: "Ramal 449 (atendimento contribuinte) / Ramal 448 (permissionários)"
   },
   {
-    nome: "Secretaria Municipal de Agricultura, Pecuária e Pesca",
-    secretario: "A definir", 
-    areas: ["Agricultura Familiar", "Pesca Artesanal", "Pecuária"],
-    endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "agricultura@marica.rj.gov.br"
+    nome: "Secretaria de Assuntos Religiosos",
+    secretario: "Pastor Sérgio Luis de Sousa",
+    areas: ["Liberdade Religiosa", "Diversidade Religiosa", "Combate à Intolerância", "Diálogo Inter-religioso"],
+    endereco: "Avenida Roberto Silveira, 46, 2º andar - prédio Costa Azul (prédio da Taco) - Centro",
+    telefone: "(21) 97178-3934 (Ramal: 422)",
+    email: "assuntosreligiososmarica@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h",
+    website: "https://assuntosreligiosos.marica.rj.gov.br/"
   },
   {
-    nome: "Secretaria Municipal de Desenvolvimento Urbano e Habitação",
-    secretario: "A definir",
-    areas: ["Planejamento Urbano", "Habitação Popular", "Regularização"],
+    nome: "Secretaria de Comunicação Social",
+    secretario: "Danielle Ferreira de Oliveira",
+    areas: ["Divulgação de Ações Municipais", "Relações Públicas", "Conteúdo Jornalístico", "Redes Sociais"],
     endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "habitacao@marica.rj.gov.br"
+    telefone: "(21) 2042-7222 (Ramal: 126)",
+    email: "secommarica1@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h",
+    observacao: "Canais: Facebook, Instagram, YouTube, WhatsApp, TikTok"
   },
   {
-    nome: "Secretaria Municipal de Transportes",
-    secretario: "A definir",
-    areas: ["Transporte Público", "Mobilidade", "Trânsito"],
+    nome: "Secretaria de Governança em Licitações e Contratos",
+    secretario: "Felippe Gomes Lima",
+    areas: ["Licitações Municipais", "Contratos Administrativos", "Plano Anual de Contratações (PCA)", "Plano de Logística Sustentável (PLS)"],
     endereco: "Rua Álvares de Castro, 346 - Centro",
-    telefone: "(21) 2637-2052",
-    email: "transportes@marica.rj.gov.br"
+    telefone: "(21) 97272-2252 (Ramal: 309 e 334)",
+    email: "gabinete.governanca@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h"
+  },
+  {
+    nome: "Secretaria Municipal de Direitos Humanos",
+    secretario: "João Carlos de Lima (Birigu)",
+    areas: ["Programa Cultura de Direitos", "Comitê de Defesa do Bairro (CDB)", "Casa dos Conselhos", "Políticas de Garantia de Direitos"],
+    endereco: "Rua Pereira Neves, 274 - Centro",
+    telefone: "(21) 2634-1197 / (21) 99431-6472 (Ramal: 462)",
+    email: "smdh@marica.rj.gov.br / sdhmarica@gmail.com",
+    horario: "Segunda a sexta, de 8h às 17h"
   }
 ];
 
@@ -256,6 +295,35 @@ export default function SecretariasPage() {
                             {secretaria.email}
                           </a>
                         </div>
+                        
+                        {secretaria.horario && (
+                          <div className="flex items-center gap-2">
+                            <svg className="w-4 h-4 text-marica-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span className="text-gray-700">{secretaria.horario}</span>
+                          </div>
+                        )}
+                        
+                        {secretaria.whatsapp && (
+                          <div className="flex items-center gap-2">
+                            <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                            <span className="text-gray-700">WhatsApp: {secretaria.whatsapp}</span>
+                          </div>
+                        )}
+                        
+                        {secretaria.website && (
+                          <div className="flex items-center gap-2">
+                            <svg className="w-4 h-4 text-marica-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+                            </svg>
+                            <a href={secretaria.website} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 underline">
+                              Site oficial
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
