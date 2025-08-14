@@ -4,6 +4,36 @@ import { Layout } from "~/components/Layout";
 import { Card, CardContent, CardHeader } from "@koeprefeito/ui";
 import { Badge } from "@koeprefeito/ui";
 
+// Helper function to get initials from a name
+const getInitials = (name: string) => {
+  return name
+    .split(" ")
+    .filter(word => word.length > 0)
+    .slice(0, 2)
+    .map(word => word[0])
+    .join("")
+    .toUpperCase();
+};
+
+// Helper function to generate consistent colors based on name
+const getAvatarColor = (name: string) => {
+  const colors = [
+    "bg-primary-500 text-white",
+    "bg-secondary-500 text-white", 
+    "bg-marica-500 text-white",
+    "bg-blue-500 text-white",
+    "bg-green-500 text-white",
+    "bg-purple-500 text-white",
+    "bg-indigo-500 text-white",
+    "bg-pink-500 text-white",
+    "bg-red-500 text-white",
+    "bg-yellow-500 text-gray-900"
+  ];
+  
+  const hash = name.split("").reduce((acc, char) => char.charCodeAt(0) + acc, 0);
+  return colors[hash % colors.length];
+};
+
 const vereadores = [
   {
     nome: "Adelso Pereira",
@@ -260,13 +290,24 @@ export default function VerreadoresPage() {
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          {vereador.nome}
-                        </h3>
-                        <Badge variant={partidoColors[vereador.partido] || "secondary"}>
-                          {vereador.partido}
-                        </Badge>
+                      {/* Avatar e informações do vereador */}
+                      <div className="flex items-center gap-3 mb-3">
+                        <div 
+                          className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold ${getAvatarColor(vereador.nome)}`}
+                        >
+                          {getInitials(vereador.nome)}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-1">
+                            <h3 className="text-lg font-semibold text-gray-900">
+                              {vereador.nome}
+                            </h3>
+                            <Badge variant={partidoColors[vereador.partido] || "secondary"}>
+                              {vereador.partido}
+                            </Badge>
+                          </div>
+                          <p className="text-sm text-gray-600">Vereador</p>
+                        </div>
                       </div>
                       
                       <div className="flex items-center gap-2 mb-3">

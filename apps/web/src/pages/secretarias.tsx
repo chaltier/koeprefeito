@@ -3,6 +3,36 @@ import Link from "next/link";
 import { Layout } from "~/components/Layout";
 import { Card, CardContent, CardHeader } from "@koeprefeito/ui";
 
+// Helper function to get initials from a name
+const getInitials = (name: string) => {
+  return name
+    .split(" ")
+    .filter(word => word.length > 0)
+    .slice(0, 2)
+    .map(word => word[0])
+    .join("")
+    .toUpperCase();
+};
+
+// Helper function to generate consistent colors based on name
+const getAvatarColor = (name: string) => {
+  const colors = [
+    "bg-primary-500 text-white",
+    "bg-secondary-500 text-white", 
+    "bg-marica-500 text-white",
+    "bg-blue-500 text-white",
+    "bg-green-500 text-white",
+    "bg-purple-500 text-white",
+    "bg-indigo-500 text-white",
+    "bg-pink-500 text-white",
+    "bg-red-500 text-white",
+    "bg-yellow-500 text-gray-900"
+  ];
+  
+  const hash = name.split("").reduce((acc, char) => char.charCodeAt(0) + acc, 0);
+  return colors[hash % colors.length];
+};
+
 const secretarias = [
   {
     nome: "Secretaria Municipal de Administração",
@@ -478,14 +508,28 @@ export default function SecretariasPage() {
             {secretarias.map((secretaria, index) => (
               <Card key={index} className="hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <div className="flex justify-between items-start">
+                  <div className="flex justify-between items-start gap-4">
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-primary-800 mb-2">
+                      <h3 className="text-xl font-semibold text-primary-800 mb-3">
                         {secretaria.nome}
                       </h3>
-                      <p className="text-gray-700">
-                        <strong>Secretário(a):</strong> {secretaria.secretario}
-                      </p>
+                      
+                      {/* Avatar e informações do secretário */}
+                      <div className="flex items-center gap-3">
+                        <div 
+                          className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold ${getAvatarColor(secretaria.secretario)}`}
+                        >
+                          {getInitials(secretaria.secretario)}
+                        </div>
+                        <div>
+                          <p className="text-gray-900 font-medium">
+                            {secretaria.secretario}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            Secretário(a)
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardHeader>
