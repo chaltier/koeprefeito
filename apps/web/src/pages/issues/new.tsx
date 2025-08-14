@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader } from "@koeprefeito/ui";
 import { Input } from "@koeprefeito/ui";
 import { api } from "~/utils/api";
 import { Layout } from "~/components/Layout";
+import { ImageUpload } from "~/components/ImageUpload";
 import { IssueCategory, IssuePriority } from "@koeprefeito/database";
 
 const categoryLabels: Record<IssueCategory, string> = {
@@ -42,6 +43,7 @@ export default function NewIssuePage() {
     address: "",
     latitude: 0,
     longitude: 0,
+    images: [] as string[],
   });
 
   const createIssue = api.issues.create.useMutation({
@@ -80,7 +82,7 @@ export default function NewIssuePage() {
         address: formData.address.trim(),
         latitude: formData.latitude || -23.550520, // Default São Paulo coordinates
         longitude: formData.longitude || -46.633308,
-        images: [], // Will be implemented with image upload
+        images: formData.images,
       });
     } catch (error) {
       // Error handled in onError callback
@@ -203,7 +205,7 @@ export default function NewIssuePage() {
                   </span>
                 </div>
                 <span className="mt-2 block text-sm font-medium text-gray-900">
-                  Localização
+                  Localização e Fotos
                 </span>
               </li>
               
@@ -230,7 +232,7 @@ export default function NewIssuePage() {
             <CardHeader>
               <h2 className="text-xl font-semibold text-gray-900">
                 {currentStep === 1 && "Descreva o problema ou sugestão"}
-                {currentStep === 2 && "Onde está localizado?"}
+                {currentStep === 2 && "Localização e fotos"}
                 {currentStep === 3 && "Revise sua solicitação"}
               </h2>
             </CardHeader>
@@ -352,6 +354,14 @@ export default function NewIssuePage() {
                       ✅ Coordenadas capturadas: {formData.latitude.toFixed(6)}, {formData.longitude.toFixed(6)}
                     </div>
                   )}
+
+                  <div className="mt-8">
+                    <ImageUpload
+                      onImagesChange={(images) => setFormData(prev => ({ ...prev, images }))}
+                      existingImages={formData.images}
+                      maxImages={5}
+                    />
+                  </div>
                 </>
               )}
 
@@ -384,6 +394,28 @@ export default function NewIssuePage() {
                     <h3 className="font-medium text-gray-900">Endereço</h3>
                     <p className="text-gray-600">{formData.address}</p>
                   </div>
+                  
+                  {formData.images.length > 0 && (
+                    <div>
+                      <h3 className="font-medium text-gray-900">Imagens ({formData.images.length})</h3>
+                      <div className="grid grid-cols-3 gap-2 mt-2">
+                        {formData.images.slice(0, 3).map((image, index) => (
+                          <div key={index} className="aspect-square rounded-lg overflow-hidden">
+                            <img
+                              src={image}
+                              alt={`Imagem ${index + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ))}
+                        {formData.images.length > 3 && (
+                          <div className="aspect-square rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 text-sm">
+                            +{formData.images.length - 3} mais
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
